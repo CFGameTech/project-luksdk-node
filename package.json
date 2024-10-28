@@ -11,8 +11,8 @@
     "tsc": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
     "prepublish": "npm run tsc"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["luksdk"],
+  "author": "luksdk",
   "license": "ISC",
   "description": "",
   "devDependencies": {
