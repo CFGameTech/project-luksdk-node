@@ -22,8 +22,10 @@ export type RefreshChannelTokenResponse = {
     left_time?: number;
 };
 export type GetChannelUserInfoRequest = {
+    g_id?: number;
     c_id?: number;
     c_uid?: string;
+    timestamp?: number;
     token?: string;
     sign?: string;
 };
@@ -47,6 +49,8 @@ export type CreateChannelOrderRequestEntry = {
 export type CreateChannelOrderRequest = {
     sign?: string;
     data?: CreateChannelOrderRequestEntry[];
+    timestamp?: number;
+    nonce?: string;
 };
 export type CreateChannelOrderResponseEntry = {
     c_uid?: string;
@@ -70,6 +74,8 @@ export type NotifyChannelOrderRequestEntry = {
 export type NotifyChannelOrderRequest = {
     sign?: string;
     data?: NotifyChannelOrderRequestEntry[];
+    timestamp?: number;
+    nonce?: string;
 };
 export type NotifyChannelOrderResponseEntry = {
     c_uid?: string;

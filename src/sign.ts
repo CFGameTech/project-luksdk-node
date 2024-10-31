@@ -48,6 +48,8 @@ function castToSignatureParams(obj: Params): Record<string, string> {
                     case 'boolean':
                         if (!obj[key]) return;
                         break
+                    default:
+                        return;
                 }
                 result[key] = String(obj[key]);
             }

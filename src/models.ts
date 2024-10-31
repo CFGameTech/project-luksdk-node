@@ -29,8 +29,10 @@ export type RefreshChannelTokenResponse = {
 };
 
 export type GetChannelUserInfoRequest = {
+    g_id?: number; // 游戏id
     c_id?: number; // 渠道ID
     c_uid?: string; // 渠道用户id
+    timestamp?: number; // 时间戳
     token?: string; // 用户token
     sign?: string; // 加密签名
 };
@@ -57,6 +59,8 @@ export type CreateChannelOrderRequestEntry = {
 export type CreateChannelOrderRequest = {
     sign?: string; // 加密签名
     data?: CreateChannelOrderRequestEntry[]; // 订单条目
+    timestamp?: number; // 时间戳
+    nonce?: string // 随机值
 };
 
 export type CreateChannelOrderResponseEntry = {
@@ -84,6 +88,8 @@ export type NotifyChannelOrderRequestEntry = {
 export type NotifyChannelOrderRequest = {
     sign?: string; // 加密签名
     data?: NotifyChannelOrderRequestEntry[];
+    timestamp?: number; // 时间戳
+    nonce?: string // 随机值
 };
 
 export type NotifyChannelOrderResponseEntry = {
@@ -153,7 +159,7 @@ export class Response<T> {
     msg: string = "";
     data?: T;
 
-    constructor(data?: T) {
+    public constructor(data?: T) {
         if (data !== undefined) {
             this.data = data;
         }
@@ -161,7 +167,7 @@ export class Response<T> {
 
 
     // 设置响应的错误信息
-    withError(err: Error, msg: string[] = []): Response<T> {
+    public withError(err: Error, msg: string[] = []): Response<T> {
         if (err instanceof CustomizeError) {
             this.code = err.code;
         }else {
@@ -175,7 +181,7 @@ export class Response<T> {
     }
 
     // 设置响应的数据
-    withData(data: T): Response<T> {
+    public withData(data: T): Response<T> {
         this.data = data;
         if (this.code === 0) {
             this.msg = '成功';
@@ -184,7 +190,7 @@ export class Response<T> {
     }
 
     // 判断是否成功
-    suc(): boolean {
+    public suc(): boolean {
         return this.code === 0;
     }
 }
