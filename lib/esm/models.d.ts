@@ -97,8 +97,8 @@ export declare class NotifyGameRequest {
     getSettingGame: () => NotifyGameRequestGaming;
 }
 export type NotifyGameRequestStartBefore = {
-    room_id?: number;
-    round_id?: number;
+    room_id?: string;
+    round_id?: string;
     player_ready_status?: {
         [playerId: string]: boolean;
     };
@@ -106,15 +106,15 @@ export type NotifyGameRequestStartBefore = {
     game_setting?: string;
 };
 export type NotifyGameRequestGaming = {
-    room_id?: number;
-    round_id?: number;
+    room_id?: string;
+    round_id?: string;
     player_num?: number;
     player_uids?: string[];
     notify_action?: number;
 };
 export type NotifyGameRequestEnd = {
-    room_id?: number;
-    round_id?: number;
+    room_id?: string;
+    round_id?: string;
     rank?: string[];
     is_force_end?: boolean;
     notify_action?: number;

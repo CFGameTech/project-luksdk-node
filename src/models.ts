@@ -125,24 +125,24 @@ export class NotifyGameRequest {
 }
 
 export type NotifyGameRequestStartBefore = {
-    room_id?: number; // 房间id
-    round_id?: number; // 回合ID
+    room_id?: string; // 房间id
+    round_id?: string; // 回合ID
     player_ready_status?: { [playerId: string]: boolean }; // 玩家准备状态
     notify_action?: number; // 游戏通知操作
     game_setting?: string; // 游戏当前设置
 };
 
 export type NotifyGameRequestGaming = {
-    room_id?: number; // 房间id
-    round_id?: number; // 回合ID
+    room_id?: string; // 房间id
+    round_id?: string; // 回合ID
     player_num?: number; // 玩家数量
     player_uids?: string[]; // 玩家uids数组
     notify_action?: number; // 游戏通知操作
 };
 
 export type NotifyGameRequestEnd = {
-    room_id?: number; // 房间id
-    round_id?: number; // 回合ID
+    room_id?: string; // 房间id
+    round_id?: string; // 回合ID
     rank?: string[]; // 排名
     is_force_end?: boolean; // 是否为强制结束
     notify_action?: number; // 游戏通知操作
