@@ -5,7 +5,7 @@ const port = 8080;
 
 app.use(express.json());
 
-const sdk = new luksdk.SDK("fa7ad21fdbe10218024f88538a86");
+const sdk = new luksdk.SDK("fa7ad21fdbe10218024f88538a86", "https://api.luk.live");
 
 app.post("/sdk/get_channel_token", (req, res) => {
     const request = req.body;
@@ -86,6 +86,16 @@ app.post("/sdk/notify_game", (req, res) => {
 
     console.log("notify_game", { request, response });
     res.status(200).json(response);
+});
+
+app.get("/sdk/get_game_service_list", (req, res) => {
+    sdk.getGameServiceList(1010997).then(response => {
+        return response;
+    }).then(data => {
+        res.status(200).json(data);
+    }).catch(error => {
+        res.status(500).json({ error: error.message });
+    });
 });
 
 app.listen(port, () => {

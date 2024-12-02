@@ -1,6 +1,6 @@
 {
   "name": "luksdk",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "files": [
@@ -11,12 +11,15 @@
     "tsc": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
     "prepublish": "npm run tsc"
   },
-  "keywords": ["luksdk"],
+  "keywords": [
+    "luksdk"
+  ],
   "author": "LUKSDK",
   "license": "ISC",
   "description": "",
   "devDependencies": {
     "@types/node": "^22.8.1",
+    "@types/request": "^2.48.12",
     "typescript": "^5.6.3"
   },
   "dependencies": {

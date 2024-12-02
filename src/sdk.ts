@@ -13,9 +13,13 @@ import {
     NotifyChannelOrderRequest,
     NotifyChannelOrderResponse,
     NotifyGameRequest,
-    NotifyGameResponse
+    NotifyGameResponse,
+    GetGameServiceListRequest,
+    GetGameServiceListResponse,
+    IssuancePropsRequestEntry,
+    IssuancePropsRequest, IssuancePropsResponse
 } from "./models";
-import {CustomizeError, errors} from "./errors"; // 引入之前的签名生成函数
+import {CustomizeError, errors} from "./errors";
 
 interface Params {
     [key: string]: any;
@@ -23,9 +27,76 @@ interface Params {
 
 export class SDK {
     private readonly signSecret: string;
+    private readonly domain: string;
+    private readonly apiPrefix = "/sdk"
 
-    constructor(signSecret: string) {
+    constructor(signSecret: string, domain: string) {
         this.signSecret = signSecret;
+        this.domain = domain;
+    }
+
+    public async issuance_props(channelId: number, gameId: number, data: IssuancePropsRequestEntry[]) : Promise<Response<IssuancePropsResponse>> {
+        if (!this.domain) {
+            throw new Error("Domain is empty");
+        }
+
+        const url = `${this.domain}${this.apiPrefix}/issuance_props/`;
+        const body :IssuancePropsRequest = {
+            c_id: channelId,
+            g_id: gameId,
+            timestamp: Date.now(),
+            data: data,
+        };
+
+        if (!body.sign || body.sign === "") {
+            body.sign = this.generateSignature(body);
+        }
+
+        return fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(body),
+            headers: {'Content-Type': 'application/json'}
+        }).then(r => {
+            if (!r.ok) {
+                return Promise.reject(new Error('Request failed with status ' + r.status));
+            }
+            return r.json();  // 这里返回解析后的 JSON 数据
+        }).then(data => {
+            return data;  // 返回获取到的数据
+        }).catch(error => {
+            return Promise.reject(error);  // 错误处理
+        });
+    }
+
+    public getGameServiceList(channelId: number): Promise<Response<GetGameServiceListResponse>> {
+        if (!this.domain) {
+            return Promise.reject(new Error("Domain is empty"));
+        }
+
+        const url = `${this.domain}${this.apiPrefix}/get_game_service_list/`;
+        const body: GetGameServiceListRequest = {
+            c_id: channelId,
+            timestamp: Date.now(),
+        };
+
+        if (!body.sign || body.sign === "") {
+            body.sign = this.generateSignature(body);
+        }
+
+        return fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(body),
+            headers: {'Content-Type': 'application/json'}
+        }).then(r => {
+            if (!r.ok) {
+                return Promise.reject(new Error('Request failed with status ' + r.status));
+            }
+            return r.json();  // 这里返回解析后的 JSON 数据
+        }).then(data => {
+            return data;  // 返回获取到的数据
+        }).catch(error => {
+            return Promise.reject(error);  // 错误处理
+        });
     }
 
     // VerifySignature 验证签名是否正确

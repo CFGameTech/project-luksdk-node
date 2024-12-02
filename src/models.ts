@@ -148,8 +148,40 @@ export type NotifyGameRequestEnd = {
     notify_action?: number; // 游戏通知操作
 };
 
-export type NotifyGameResponse = {
+export type NotifyGameResponse = {}
 
+export type IssuancePropsRequestEntry = {
+    c_uid?: string
+    prop_id?: string
+    expire?: number
+    num?: number
+}
+
+export type IssuancePropsRequest = {
+    c_id?: number
+    g_id?: number
+    timestamp?: number
+    sign?: string
+    data?: IssuancePropsRequestEntry[]
+}
+
+export type IssuancePropsResponse = {}
+
+export type GetGameServiceListRequest = {
+    c_id?: number
+    timestamp?: number
+    sign?: string
+}
+
+export type GetGameServiceListResponseEntry = {
+    g_id?: number
+    g_name?: string
+    g_icon?: string
+    g_url?: string
+}
+
+export type GetGameServiceListResponse = {
+    game_list?: GetGameServiceListResponseEntry[]
 }
 
 export type RequestHandler<Q, T> = (request?: Q) => T | undefined | null | Error;
@@ -170,7 +202,7 @@ export class Response<T> {
     public withError(err: Error, msg: string[] = []): Response<T> {
         if (err instanceof CustomizeError) {
             this.code = err.code;
-        }else {
+        } else {
             this.code = -1;
         }
         this.msg = err.message;

@@ -120,6 +120,34 @@ export type NotifyGameRequestEnd = {
     notify_action?: number;
 };
 export type NotifyGameResponse = {};
+export type IssuancePropsRequestEntry = {
+    c_uid?: string;
+    prop_id?: string;
+    expire?: number;
+    num?: number;
+};
+export type IssuancePropsRequest = {
+    c_id?: number;
+    g_id?: number;
+    timestamp?: number;
+    sign?: string;
+    data?: IssuancePropsRequestEntry[];
+};
+export type IssuancePropsResponse = {};
+export type GetGameServiceListRequest = {
+    c_id?: number;
+    timestamp?: number;
+    sign?: string;
+};
+export type GetGameServiceListResponseEntry = {
+    g_id?: number;
+    g_name?: string;
+    g_icon?: string;
+    g_url?: string;
+};
+export type GetGameServiceListResponse = {
+    game_list?: GetGameServiceListResponseEntry[];
+};
 export type RequestHandler<Q, T> = (request?: Q) => T | undefined | null | Error;
 export declare class Response<T> {
     code: number;

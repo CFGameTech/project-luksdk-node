@@ -14,7 +14,7 @@ npm install luksdk
 const luksdk = require("luksdk")
 function example() {
     // 初始化 SDK
-    let sdk = new luksdk.SDK("123456");
+    let sdk = new luksdk.SDK("123456", "https://......");
     // 来自 SDK 请求的参数结构
     let request = {
         c_id: 1000, c_uid: "123456789", code: "", sign: "", timestamp: 167456789

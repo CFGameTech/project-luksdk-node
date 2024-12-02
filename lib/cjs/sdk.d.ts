@@ -1,10 +1,14 @@
-import { GetChannelTokenRequest, GetChannelTokenResponse, RefreshChannelTokenRequest, Response, RequestHandler, RefreshChannelTokenResponse, GetChannelUserInfoRequest, GetChannelUserInfoResponse, CreateChannelOrderRequest, CreateChannelOrderResponse, NotifyChannelOrderRequest, NotifyChannelOrderResponse, NotifyGameRequest, NotifyGameResponse } from "./models";
+import { GetChannelTokenRequest, GetChannelTokenResponse, RefreshChannelTokenRequest, Response, RequestHandler, RefreshChannelTokenResponse, GetChannelUserInfoRequest, GetChannelUserInfoResponse, CreateChannelOrderRequest, CreateChannelOrderResponse, NotifyChannelOrderRequest, NotifyChannelOrderResponse, NotifyGameRequest, NotifyGameResponse, GetGameServiceListResponse, IssuancePropsRequestEntry, IssuancePropsResponse } from "./models";
 interface Params {
     [key: string]: any;
 }
 export declare class SDK {
     private readonly signSecret;
-    constructor(signSecret: string);
+    private readonly domain;
+    private readonly apiPrefix;
+    constructor(signSecret: string, domain: string);
+    issuance_props(channelId: number, gameId: number, data: IssuancePropsRequestEntry[]): Promise<Response<IssuancePropsResponse>>;
+    getGameServiceList(channelId: number): Promise<Response<GetGameServiceListResponse>>;
     verifySignature(sign: string, params: Params): boolean;
     generateSignature(params: Params): string;
     getChannelToken(request: GetChannelTokenRequest, successHandler?: RequestHandler<GetChannelTokenRequest, GetChannelTokenResponse>): Response<GetChannelTokenResponse>;
